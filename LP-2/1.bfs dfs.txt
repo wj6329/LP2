@@ -1,0 +1,50 @@
+graph = {
+    '5' : ['3', '7'],
+    '3' : ['2', '4'],
+    '7' : ['8'],
+    '2' : [],
+    '4' : ['8'],
+    '8' : []
+}
+
+visited = []
+queue = []
+
+def BFS(graph, node):
+    visited.append(node)
+    queue.append(node)
+    
+    while queue:
+        m = queue.pop(0)
+#         print(m)
+        print(m, end = ' ') # end make sure next line print on same line
+        
+        for neighbour in graph[m]:
+            if neighbour not in visited:
+                visited.append(neighbour)
+                queue.append(neighbour)
+                
+print("BFS :", end = ' ') # end make sure next line print on same line
+BFS(graph, '5')
+
+graph = {
+    '5' : ['3', '7'],
+    '3' : ['2', '4'],
+    '7' : ['8'],
+    '2' : [],
+    '4' : ['8'],
+    '8' : []
+}
+
+visited = set()
+
+def DFS(graph, visited, node):
+    if node not in visited:
+#         print(node);
+        print(node, end = ' ') # end make sure next line print on same line
+        visited.add(node)
+        for neighbour in graph[node]:
+            DFS(graph, visited, neighbour)
+
+print("DFS :", end = ' ') # end make sure next line print on same line
+DFS(graph, visited, '5')

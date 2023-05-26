@@ -1,0 +1,44 @@
+class GraphColoring:
+    def __init__(self, graph, num_colors):
+        self.graph = graph
+        self.num_colors = num_colors
+        self.colors = [0] * len(graph)
+        self.solution = None
+
+    def is_safe(self, v, color):
+        for i in range(len(self.graph)):
+            if self.graph[v][i] == 1 and self.colors[i] == color:
+                return False
+        return True
+
+    def backtrack(self, v):
+        if v == len(self.graph):
+            self.solution = self.colors.copy()
+            return True
+
+        for color in range(1, self.num_colors + 1):
+            if self.is_safe(v, color):
+                self.colors[v] = color
+                if self.backtrack(v + 1):
+                    return True
+                self.colors[v] = 0
+
+        return False
+
+    def solve(self):
+        if not self.backtrack(0):
+            print("No solution exists.")
+        else:
+            print("Solution found:", self.solution)
+
+
+graph = [
+    [0, 1, 1, 1],
+    [1, 0, 1, 0],
+    [1, 1, 0, 1],
+    [1, 0, 1, 0]
+]
+num_colors = 3
+
+solver = GraphColoring(graph, num_colors)
+solver.solve()
